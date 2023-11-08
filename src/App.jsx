@@ -1,21 +1,38 @@
 import PersonalData from "./components/PersonalData";
-
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import EducationData from "./components/EducationData";
+import Resume from "./components/Resume";
 function App() {
 
-  
+
   return (
-    <>
-    <div className="flex items-center gap-3">  
-      <h1 className="hover:bg-green-500 cursor-pointer text-white bg-gray-500 px-5 py-1 rounded">Personal Details</h1>
-      <h1 className="hover:bg-green-500 cursor-pointer text-white bg-gray-500 px-5 py-1 rounded">Education Details</h1>
-      <h1 className="hover:bg-green-500 cursor-pointer text-white bg-gray-500 px-5 py-1 rounded">Skills</h1>
-      <h1 className="hover:bg-green-500 cursor-pointer text-white bg-gray-500 px-5 py-1 rounded">Interest</h1>
-      <h1 className="hover:bg-green-500 cursor-pointer text-white bg-gray-500 px-5 py-1 rounded">Experience</h1>
-      <h1 className="hover:bg-green-500 cursor-pointer text-white bg-gray-500 px-5 py-1 rounded">Projects</h1>
-      <h1 className="hover:bg-green-500 cursor-pointer text-white bg-gray-500 px-5 py-1 rounded">Objective</h1>
+    <div>
+
+      <Tabs>
+        <TabList>
+          <Tab>Personal Details</Tab>
+          <Tab>Education Details</Tab>
+          <Tab>Skills</Tab>
+          <Tab>Interest</Tab>
+          <Tab>Experience</Tab>
+          <Tab>Projects</Tab>
+          <Tab>Objective</Tab>
+          <Tab>Resume</Tab>
+        </TabList>
+        <TabPanel><PersonalData /></TabPanel>
+        <TabPanel><EducationData/></TabPanel>
+        <TabPanel>Tab2</TabPanel>
+        <TabPanel>Tab2</TabPanel>
+        <TabPanel>Tab2</TabPanel>
+        <TabPanel>Tab2</TabPanel>
+        <TabPanel>Tab2</TabPanel>
+        <TabPanel><Resume/></TabPanel>
+      </Tabs>
+
+
+
     </div>
-      <PersonalData/>
-    </>
   );
 }
 

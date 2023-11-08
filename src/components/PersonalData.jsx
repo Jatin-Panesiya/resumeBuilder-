@@ -1,37 +1,43 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { personalData } from "../store/mainSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PersonalData = () => {
 
     const [data, setData] = useState({ username: '', phone: '', email: '', address: '' });
+    const notify = () => toast("your data saved , you can move");
+
     const dispatch = useDispatch();
 
-    const userData = useSelector((state) => state.main)
+    const userData = useSelector((state) => state.main.users)
 
     const handleInput = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
+
     const handleSubmit = () => {
-        dispatch(personalData(data))
-        setData({ username: '', phone: '', email: '', address: '' })
-    }
-    useEffect(() => {
-        console.log(userData.users)
-    }, [userData, dispatch])
+        dispatch(personalData(data));
+        notify();
+    
+    };
+
+   
 
     return (
-        <>
-            <div className=" mt-5">
+        <div>
+            <div className=" m-5">
                 <div className="grid gap-2 w-96 m-auto">
+                    <h1 className="font-bold text-center text-xl py-5">Personal Details</h1>
+
                     <input className="border border-black rounded ps-5 py-1"
                         type="text"
                         autoComplete="off"
                         name="username"
                         onChange={handleInput}
                         placeholder="Enter Name *"
-                        value={data.username}
-                        required />
+                        required="" />
 
                     <input className="border border-black rounded ps-5 py-1"
                         type="text"
@@ -39,7 +45,6 @@ const PersonalData = () => {
                         name="email"
                         onChange={handleInput}
                         placeholder="Enter Email *"
-                        value={data.email}
                         required />
 
                     <input className="border border-black rounded ps-5 py-1"
@@ -48,7 +53,6 @@ const PersonalData = () => {
                         name="phone"
                         onChange={handleInput}
                         placeholder="Enter Phone *"
-                        value={data.phone}
                         required />
 
                     <textarea
@@ -56,17 +60,17 @@ const PersonalData = () => {
                         cols="10"
                         rows="5" className="border border-black rounded ps-5 py-1"
                         placeholder="Enter Address *"
-                        value={data.address}
                         onChange={handleInput} />
 
                     <button
                         onClick={handleSubmit} className="bg-sky-400 py-1 text-lg rounded font-bold font-mono">
                         Add
                     </button>
+                    <ToastContainer />
                     <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
