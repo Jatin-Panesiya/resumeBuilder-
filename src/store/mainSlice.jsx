@@ -10,7 +10,7 @@ export const mainReducer = createSlice({
     reducers: {
         personalData: (state, action) => {
             const { username, email, phone, address } = action.payload;
-            state.users = [{ name:username, email:email, phone:phone, address:address }];
+            state.users = [{ name:username, email, phone, address }];
         }
     }
 })

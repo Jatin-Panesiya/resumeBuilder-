@@ -4,6 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import EducationData from "./components/EducationData";
 import Skills from "./components/Skills";
 import Resume from "./components/Resume";
+import Interests from "./components/Interests";
 function App() {
 
 
@@ -11,6 +12,7 @@ function App() {
     <div>
 
       <Tabs>
+
         <TabList>
           <Tab>Personal Details</Tab>
           <Tab>Education Details</Tab>
@@ -21,14 +23,16 @@ function App() {
           <Tab>Objective</Tab>
           <Tab>Resume</Tab>
         </TabList>
+
         <TabPanel><PersonalData /></TabPanel>
         <TabPanel><EducationData/></TabPanel>
         <TabPanel><Skills/></TabPanel>
-        <TabPanel>Tab2</TabPanel>
+        <TabPanel><Interests/></TabPanel>
         <TabPanel>Tab2</TabPanel>
         <TabPanel>Tab2</TabPanel>
         <TabPanel>Tab2</TabPanel>
         <TabPanel><Resume/></TabPanel>
+        
       </Tabs>
 
 

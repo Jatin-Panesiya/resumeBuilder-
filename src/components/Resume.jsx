@@ -4,6 +4,8 @@ import { useSelector } from "react-redux"
 const Resume = () => {
     const data = useSelector((state) => state.main.users)
     const educationData = useSelector((state) => state.education)
+    const skillData = useSelector((state) => state.skill)
+    const interests = useSelector((state) => state.interest)
 
     return (
         <div>
@@ -28,6 +30,39 @@ const Resume = () => {
                     )
                 })
             }
+            { 
+                skillData.length > 0 ?
+            <div className="flex items-center">
+
+                <p >Skills : </p>
+                {
+                    skillData.map((skill, i) => {
+                        return (
+                            <div key={i}>
+                                <p className="px-1">{skill},</p>
+                            </div>
+                        )
+                    })
+                }
+            </div> : null
+        }
+
+        {
+            interests.length > 0 ?
+            <div className="flex items-center">
+                <p >Interest : </p>
+                {
+                    interests.map((interest, i) => {
+                        return (
+                            <div key={i}>
+                                <p className="px-1">{interest},</p>
+                            </div>
+                        )
+                    })
+                }
+            </div> : null
+
+        }
         </div>
     )
 }
