@@ -2,6 +2,7 @@ import PersonalData from "./components/PersonalData";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import EducationData from "./components/EducationData";
+import Skills from "./components/Skills";
 import Resume from "./components/Resume";
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
         </TabList>
         <TabPanel><PersonalData /></TabPanel>
         <TabPanel><EducationData/></TabPanel>
-        <TabPanel>Tab2</TabPanel>
+        <TabPanel><Skills/></TabPanel>
         <TabPanel>Tab2</TabPanel>
         <TabPanel>Tab2</TabPanel>
         <TabPanel>Tab2</TabPanel>
