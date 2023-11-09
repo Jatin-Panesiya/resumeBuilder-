@@ -6,6 +6,8 @@ import Skills from "./components/Skills";
 import Resume from "./components/Resume";
 import Interests from "./components/Interests";
 import Experience from "./components/Experience";
+import Projects from "./components/Projects";
+import Summary from "./components/Summary";
 function App() {
 
 
@@ -21,7 +23,7 @@ function App() {
           <Tab>Interest</Tab>
           <Tab>Experience</Tab>
           <Tab>Projects</Tab>
-          <Tab>Objective</Tab>
+          <Tab>Profile Summary</Tab>
           <Tab>Resume</Tab>
         </TabList>
 
@@ -30,8 +32,8 @@ function App() {
         <TabPanel><Skills/></TabPanel>
         <TabPanel><Interests/></TabPanel>
         <TabPanel><Experience/></TabPanel>
-        <TabPanel>Tab2</TabPanel>
-        <TabPanel>Tab2</TabPanel>
+        <TabPanel><Projects/></TabPanel>
+        <TabPanel><Summary/></TabPanel>
         <TabPanel><Resume/></TabPanel>
         
       </Tabs>

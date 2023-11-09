@@ -79,7 +79,7 @@ const PersonalData = () => {
 
 
                 {
-                    userData.length > 0 ?
+                    userData.length > 0 &&
                         userData.map(({ name, phone, email, address }, i) => {
                             return (
                                 <div key={i} className="w-96 rounded-xl p-3 bg-sky-200" >
@@ -91,7 +91,7 @@ const PersonalData = () => {
                                 </div>
                             )
                         })
-                        : null
+                       
                 }
 
             </div>

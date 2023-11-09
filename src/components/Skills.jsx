@@ -30,7 +30,7 @@ const Skills = () => {
     <div className="w-96 m-auto py-5 grid gap-5">
       <div className="flex items-center gap-3 ">
         <input value={inputedSkill} ref={inputD} type="text" onKeyDown={handleKeyPress} onChange={handleInput} placeholder="Enter Skills" className="border py-1 border-black ps-5 rounded" />
-        <button onClick={handleAdd} className="bg-green-500 text-white px-5 py-1 rounded-xl">Add</button>
+        <button onClick={handleAdd} className="bg-sky-400 font-semibold px-5 py-1 rounded-xl">Add</button>
       </div>
       {
         data.length > 0 ?

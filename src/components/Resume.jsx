@@ -7,6 +7,8 @@ const Resume = () => {
     const skillData = useSelector((state) => state.skill)
     const interests = useSelector((state) => state.interest)
     const experience = useSelector((state) => state.experience)
+    const projects = useSelector((state)=> state.projects)
+    const summary = useSelector((state)=> state.summary)
 
     return (
         <div>
@@ -67,7 +69,7 @@ const Resume = () => {
             {
                 experience.length > 0 &&
                 <div className="flex">
-                    <p className="px-3">Experience : </p>
+                    <p className="">Experience : </p>
                     {
                         experience.map((e,i)=>{
                             return(
@@ -78,6 +80,26 @@ const Resume = () => {
                         })
                     }
                 </div>
+            }
+
+            {
+                projects.length > 0 &&
+                <div className="flex">
+                    <p className="">Projects : </p>
+                    {
+                        projects.map((e,i)=>{
+                            return(
+                                <div key={i}>
+                                    <p>{e.company}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            }
+            {
+                summary !== "" && 
+                <p>Summary : {summary}</p>
             }
         </div>
     )

@@ -28,7 +28,7 @@ const Interests = () => {
     <div className="w-96 grid gap-3 m-auto py-5">
       <div className="flex items-center gap-3">
         <input className="border py-1 border-black ps-5 rounded" type="text" onChange={(e) => setData(e.target.value)} ref={inputD} value={data} onKeyDown={handleKeyPress} placeholder="Enter Interests" />
-        <button onClick={handleSubmit} className="bg-green-500 text-white px-5 py-1 rounded-xl">Add</button>
+        <button onClick={handleSubmit} className="bg-sky-400  font-semibold px-5 py-1 rounded-xl">Add</button>
       </div>
       {
         storeData.length > 0 ?

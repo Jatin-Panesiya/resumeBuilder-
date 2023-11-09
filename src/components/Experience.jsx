@@ -17,7 +17,7 @@ const Experience = () => {
     const [data, setData] = useState(defaultData)
 
     const handleInput = (e) => {
-        
+
         setData({ ...data, [e.target.name]: e.target.value })
     }
 
@@ -43,9 +43,9 @@ const Experience = () => {
 
         setIsCurrent(!isCurrent);
     };
-    useEffect(()=>{
+    useEffect(() => {
         data.endDate
-    },[data])
+    }, [data])
 
 
     return (
@@ -100,7 +100,7 @@ const Experience = () => {
                                 <p>To </p>
                                 <input
                                     className="border border-black ps-5 py-1 rounded"
-                                    type={isCurrent ? 'text' : 'date'} 
+                                    type={isCurrent ? 'text' : 'date'}
                                     placeholder="Position *"
                                     onChange={handleInput}
                                     value={data.endDate}
@@ -109,7 +109,7 @@ const Experience = () => {
                             </div>
                         )
                     }
-                    
+
                 </div>
                 <div className="flex items-center gap-3">
                     <input className="cursor-pointer" onChange={handleCheckBox} type="checkbox" id="currentCheckbox" ref={inputCheck} name="current" checked={isCurrent} />
@@ -134,7 +134,7 @@ const Experience = () => {
                                     <p>Start Date : {e.startDate}</p>
 
                                     <p>End Date : {e.endDate}</p>
-                                    
+
                                     <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 rounded my-3 font-semibold">Delete</button>
                                 </div>
                             )
