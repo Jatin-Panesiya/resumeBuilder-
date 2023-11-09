@@ -1,11 +1,16 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react"
+import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { addProject, removeProject } from "../store/projectsSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Projects = () => {
     const dispatch = useDispatch();
     const storeData = useSelector((state) => state.projects)
+    const notify = () => toast("your data saved , you can move");
+
+    const inputD = useRef()
 
     const defaultData = { id: nanoid(), title: '', description: '', technologies: '' };
 
@@ -14,22 +19,27 @@ const Projects = () => {
     const handleInput = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
+    const { title, description, technologies } = data
+    const isFormValid = () => title !== "" && description !== "" && technologies !== "";
 
     const handleAdd = () => {
-        dispatch(addProject(data))
-        setData(defaultData)
+        if (isFormValid()) {
+            dispatch(addProject(data))
+            setData(defaultData)
+            notify()
+        } else {
+            alert("Please fill up all data")
+            inputD.current.focus()
+        }
     }
-    useEffect(() => {
-        console.log(storeData)
-    }, [storeData])
 
     const handleRemove = (id) => {
         dispatch(removeProject(id))
     }
     return (
         <div className="grid md:justify-around m-5 md:flex items-center justify-center">
-            <div className="grid gap-3 w-96 m-auto py-5">
-            <h1 className="font-bold text-center text-xl py-5">Projects</h1>
+            <div className="grid gap-3 md:w-96 m-auto py-5">
+                <h1 className="font-bold text-center text-xl py-5">Projects</h1>
 
                 <input
                     className="border border-black ps-5 py-1 rounded"
@@ -38,6 +48,7 @@ const Projects = () => {
                     placeholder="Project Name *"
                     onChange={handleInput}
                     value={data.title}
+                    ref={inputD}
                 />
                 <textarea
                     rows={4}
@@ -58,6 +69,8 @@ const Projects = () => {
                     value={data.technologies}
                 />
                 <button onClick={handleAdd} className="bg-sky-400 font-bold py-1 rounded">Add</button>
+                <ToastContainer />
+                <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
 
             </div>
             {
@@ -66,8 +79,8 @@ const Projects = () => {
                     {
                         storeData.map((e, i) => {
                             return (
-                                <div key={i} className="w-72 bg-emerald-700 break-words m-auto text-white p-5 rounded ">
-                                    <p>Title : {e.title}</p> 
+                                <div key={i} className="md:w-72 w-full bg-emerald-700 break-words m-auto text-white p-5 rounded ">
+                                    <p>Title : {e.title}</p>
                                     <p>Technologies : {e.technologies}</p>
                                     <p >Description : {e.description}</p>
 

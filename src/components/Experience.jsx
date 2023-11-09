@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { addExperience, removeExperience } from "../store/experienceSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { nanoid } from "@reduxjs/toolkit";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Experience = () => {
@@ -9,6 +11,7 @@ const Experience = () => {
     const dispatch = useDispatch();
     const storeData = useSelector((state) => state.experience)
     const defaultData = { id: nanoid(), company: '', position: '', description: '', startDate: '', endDate: '', }
+    const notify = () => toast("your data saved , you can move");
 
     const inputD = useRef()
     const inputCheck = useRef()
@@ -21,15 +24,21 @@ const Experience = () => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
 
-    useEffect(() => {
-        console.log(storeData)
-    }, [storeData])
+    const { company, position, description } = data;
+    const isFormValid = () => company !== "" && position !== "" && description !== "" 
 
     const handleAdd = () => {
-        dispatch(addExperience(data))
-        setIsCurrent(false)
-        setData(defaultData)
-        inputD.current.focus();
+        if (isFormValid()) {
+
+            dispatch(addExperience(data))
+            setIsCurrent(false)
+            setData(defaultData)
+            inputD.current.focus();
+            notify()
+        } else {
+            alert("Please fill up all details")
+            inputD.current.focus();
+        }
 
     }
     const handleRemove = (id) => {
@@ -49,9 +58,9 @@ const Experience = () => {
 
 
     return (
-        <div className="grid md:justify-around m-5 md:flex items-center justify-center">
+        <div className="grid md:justify-around m-5 md:flex items-center">
 
-            <div className="w-96  m-5 grid gap-3">
+            <div className="md:w-96 m-1 grid gap-3">
                 <h1 className="font-bold text-center text-xl py-5">Experience</h1>
 
                 <input
@@ -82,7 +91,7 @@ const Experience = () => {
                     value={data.description}
                     onChange={handleInput}
                 />
-                <div className="flex items-center gap-3 text-center justify-center">
+                <div className="grid md:flex items-center gap-3 text-center justify-center">
                     <div>
                         <p>From </p>
                         <input
@@ -117,17 +126,19 @@ const Experience = () => {
                 </div>
 
                 <button onClick={handleAdd} className="bg-sky-400 font-bold py-1 rounded">Add</button>
+                <ToastContainer />
+                <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
 
 
             </div>
 
             {
                 storeData.length > 0 &&
-                <div className="flex gap-5 justify-center md:w-[52rem]">
+                <div className="flex gap-5 justify-center">
                     {
                         storeData.map((e, i) => {
                             return (
-                                <div key={i} className="w-72 bg-emerald-700  text-white m-2 p-5 rounded grid">
+                                <div key={i} className="md:w-72 bg-emerald-700  text-white m-2 p-5 rounded grid">
                                     <p>Company : {e.company}</p>
                                     <p>Position : {e.position}</p>
                                     <p>Description : {e.description}</p>

@@ -1,19 +1,31 @@
 import { useState } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { addInterests,removeInterest } from "../store/interestSlice";
+import { addInterests, removeInterest } from "../store/interestSlice";
 import { useRef } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Interests = () => {
   const [data, setData] = useState('');
   const dispatch = useDispatch()
   const inputD = useRef()
+  const notify = () => toast("your data saved , you can move");
 
   const storeData = useSelector((state) => state.interest)
 
   const handleSubmit = () => {
-    dispatch(addInterests(data))
-    setData('')
-    inputD.current.focus()
+    if (data !== "") {
+      dispatch(addInterests(data))
+      setData('')
+      inputD.current.focus()
+      notify()
+    }
+    else {
+      alert("Please enter interests")
+      inputD.current.focus()
+
+    }
   }
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -25,15 +37,16 @@ const Interests = () => {
   }
 
   return (
-    <div className="w-96 grid gap-3 m-auto py-5">
-      <div className="flex items-center gap-3">
+    <div className="md:w-96 w-full justify-center grid gap-3 m-auto py-5">
+      <div className="grid  justify-center md:flex items-center gap-3">
         <input className="border py-1 border-black ps-5 rounded" type="text" onChange={(e) => setData(e.target.value)} ref={inputD} value={data} onKeyDown={handleKeyPress} placeholder="Enter Interests" />
         <button onClick={handleSubmit} className="bg-sky-400  font-semibold px-5 py-1 rounded-xl">Add</button>
+        <ToastContainer />
       </div>
       {
         storeData.length > 0 ?
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex justify-center flex-wrap gap-3">
             {
               storeData.map((interest, i) => {
                 return (

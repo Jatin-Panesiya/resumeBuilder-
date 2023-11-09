@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { personalData } from "../store/mainSlice";
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,7 +8,7 @@ const PersonalData = () => {
 
     const [data, setData] = useState({ username: '', phone: '', email: '', address: '', key: false });
     const notify = () => toast("your data saved , you can move");
-
+    const inputD = useRef()
     const dispatch = useDispatch();
 
     const userData = useSelector((state) => state.main.users)
@@ -17,10 +17,18 @@ const PersonalData = () => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
 
+    const { username, phone, email, address } = data;
+    const isFormValid = () => username !== "" && phone !== "" && email !== "" && address !== "";
+
     const handleSubmit = () => {
-        dispatch(personalData(data));
-        notify();
-        setData({ username: '', phone: '', email: '', address: '', key: false })
+        if (isFormValid()) {
+            dispatch(personalData(data));
+            notify();
+            setData({ username: '', phone: '', email: '', address: '', key: false })
+        } else {
+            alert("Please Fill All Details")
+            inputD.current.focus()
+        }
     };
 
     const handleEdit = () => {
@@ -30,8 +38,8 @@ const PersonalData = () => {
 
     return (
         <div>
-            <div className=" m-5 flex items-center justify-around">
-                <div className="grid gap-2 w-96 ">
+            <div className="m-5 grid md:flex items-center justify-around">
+                <div className="grid gap-2 md:w-96 ">
                     <h1 className="font-bold text-center text-xl py-5">Personal Details</h1>
 
                     <input className="border border-black rounded ps-5 py-1"
@@ -41,6 +49,7 @@ const PersonalData = () => {
                         onChange={handleInput}
                         placeholder="Enter Name *"
                         value={data.username}
+                        ref={inputD}
                         required="" />
 
                     <input className="border border-black rounded ps-5 py-1"
@@ -53,7 +62,7 @@ const PersonalData = () => {
                         required />
 
                     <input className="border border-black rounded ps-5 py-1"
-                        type="text"
+                        type="number"
                         autoComplete="off"
                         name="phone"
                         onChange={handleInput}
@@ -80,18 +89,18 @@ const PersonalData = () => {
 
                 {
                     userData.length > 0 &&
-                        userData.map(({ name, phone, email, address }, i) => {
-                            return (
-                                <div key={i} className="w-96 rounded-xl p-3 bg-sky-200" >
-                                    <p>Name : {name}</p>
-                                    <p>Phone : {phone}</p>
-                                    <p>Email : {email}</p>
-                                    <p>Address : {address}</p>
-                                    <button onClick={handleEdit} className="bg-green-500 px-5 py-1 text-white rounded w-full my-2">Edit</button>
-                                </div>
-                            )
-                        })
-                       
+                    userData.map(({ name, phone, email, address }, i) => {
+                        return (
+                            <div key={i} className="md:w-96 my-2 md:my-0 rounded-xl p-3 bg-sky-200" >
+                                <p>Name : {name}</p>
+                                <p>Phone : {phone}</p>
+                                <p>Email : {email}</p>
+                                <p>Address : {address}</p>
+                                <button onClick={handleEdit} className="bg-green-500 px-5 py-1 text-white rounded w-full my-2">Edit</button>
+                            </div>
+                        )
+                    })
+
                 }
 
             </div>

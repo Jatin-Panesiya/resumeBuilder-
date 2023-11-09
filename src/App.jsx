@@ -17,23 +17,23 @@ function App() {
       <Tabs>
 
         <TabList>
+        <Tab>Profile Summary</Tab>
           <Tab>Personal Details</Tab>
           <Tab>Education Details</Tab>
-          <Tab>Skills</Tab>
-          <Tab>Interest</Tab>
           <Tab>Experience</Tab>
           <Tab>Projects</Tab>
-          <Tab>Profile Summary</Tab>
+          <Tab>Skills</Tab>
+          <Tab>Interest</Tab>
           <Tab>Resume</Tab>
         </TabList>
 
+        <TabPanel><Summary/></TabPanel>
         <TabPanel><PersonalData /></TabPanel>
         <TabPanel><EducationData/></TabPanel>
-        <TabPanel><Skills/></TabPanel>
-        <TabPanel><Interests/></TabPanel>
         <TabPanel><Experience/></TabPanel>
         <TabPanel><Projects/></TabPanel>
-        <TabPanel><Summary/></TabPanel>
+        <TabPanel><Skills/></TabPanel>
+        <TabPanel><Interests/></TabPanel>
         <TabPanel><Resume/></TabPanel>
         
       </Tabs>

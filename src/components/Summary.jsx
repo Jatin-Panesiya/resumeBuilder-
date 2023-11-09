@@ -1,13 +1,15 @@
 import { useRef, useState } from "react"
 import { addSummary, removeSummary } from "../store/summrySlice"
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Summary = () => {
 
   const [data, setData] = useState('');
   const dispatch = useDispatch()
   const inputD = useRef()
-
+  const notify = () => toast("your data saved , you can move");
   const storeData = useSelector((state) => state.summary)
 
   const handleInput = (e) => {
@@ -15,9 +17,17 @@ const Summary = () => {
   }
 
   const handleAdd = () => {
-    dispatch(addSummary(data))
-    setData('')
-    inputD.current.focus()
+    if (data !== "") {
+      dispatch(addSummary(data))
+      setData('')
+      inputD.current.focus()
+      notify()
+    }
+    else {
+      alert("Enter some data")
+      inputD.current.focus()
+
+    }
   }
 
   const handleEdit = () => {
@@ -30,8 +40,8 @@ const Summary = () => {
   }
 
   return (
-    <div className="flex items-center w-full justify-around">
-      <div className="grid gap-2 py-2 m-auto">
+    <div className="grid md:flex items-center w-full justify-around">
+      <div className="grid gap-2 py-2 m-3">
         <h1 className="font-bold text-center text-xl py-5">Profile Summary</h1>
         <textarea
           rows={5}
@@ -45,14 +55,16 @@ const Summary = () => {
           ref={inputD}
         />
         <button onClick={handleAdd} className="bg-sky-400 py-1 rounded font-semibold">Add</button>
+        <ToastContainer />
+        <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
       </div>
 
       {
-      storeData !== "" &&
-      <div className="w-96 m-auto">
+        storeData !== "" &&
+        <div className="md:w-96 w-full  m-auto">
 
 
-          <div className=" rounded-xl p-3 bg-sky-200" >
+          <div className=" rounded-xl p-3 m-3 bg-sky-200" >
             <p>Summary : {storeData}</p>
             <div className="flex gap-3">
               <button onClick={handleEdit} className="bg-green-500 px-5 py-1 text-white rounded w-full my-2">Edit</button>
@@ -60,9 +72,9 @@ const Summary = () => {
             </div>
           </div>
 
-          </div>
-        }
-          </div>
+        </div>
+      }
+    </div>
   )
 }
 

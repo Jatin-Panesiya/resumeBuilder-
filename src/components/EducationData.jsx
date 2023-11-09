@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { educationDataRemove, educationDataStore } from "../store/educationSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,36 +7,44 @@ import { nanoid } from "@reduxjs/toolkit";
 
 
 const EducationData = () => {
+
     const dispatch = useDispatch();
+    const inputD = useRef()
 
     const storeEducationData = useSelector((state) => state.education)
 
     const notify = () => toast("your data saved , you can move");
 
-
     const [educationData, setEducationData] = useState({ id: nanoid(), degree: '', university: '', passingYear: '', percentage: '' });
-
 
     const handleInput = (e) => {
         setEducationData({ ...educationData, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = () => {
-        dispatch(educationDataStore(educationData));
-        setEducationData({ id: nanoid(), degree: '', university: '', passingYear: '', percentage: '' });
-        notify();
-    }
+    const { degree, passingYear, percentage, university } = educationData;
+    const isFormValid = () => degree !== "" && passingYear !== "" && percentage !== "" && university !== "";
 
+    const handleSubmit = () => {
+
+        if (isFormValid()) {
+            dispatch(educationDataStore(educationData));
+            setEducationData({ id: nanoid(), degree: '', university: '', passingYear: '', percentage: '' });
+            notify();
+            inputD.current.focus()
+        } else {
+            alert("please fill all details")
+            inputD.current.focus()
+        }
+    }
 
     const handleRemove = (id) => {
         dispatch(educationDataRemove(id))
         notify();
-
-
     }
+
     return (
         <div className="grid md:justify-around m-5 md:flex items-center justify-center">
-            <div className="w-96  m-5 grid gap-3">
+            <div className="md:w-96 m-1 grid gap-3">
                 <h1 className="font-bold text-center text-xl py-5">Education Details</h1>
                 <input
                     className="border border-black rounded ps-5 py-1"
@@ -44,6 +52,7 @@ const EducationData = () => {
                     placeholder="University"
                     onChange={handleInput}
                     name='university'
+                    ref={inputD}
                     value={educationData.university}
                 />
                 <input
@@ -82,13 +91,13 @@ const EducationData = () => {
 
             </div>
             {
-                storeEducationData.length >0 &&
+                storeEducationData.length > 0 &&
 
                 <div className="flex gap-5 justify-center md:w-[52rem]">
                     {
                         storeEducationData.map((e, i) => {
                             return (
-                                <div key={i} className="w-72 bg-emerald-700  text-white m-2 p-5 rounded grid">
+                                <div key={i} className="md:w-72 w-full bg-emerald-700  text-white m-2 p-5 rounded grid">
                                     <p>Degree : {e.degree}</p>
                                     <p>University : {e.university}</p>
                                     <p>Marks : {e.percentage}%</p>
@@ -99,7 +108,7 @@ const EducationData = () => {
                         })
                     }
                 </div>
-                
+
             }
         </div>
     )
