@@ -1,16 +1,24 @@
 import {createSlice} from '@reduxjs/toolkit'
 
+const setLocalData = (state)=>{
+    localStorage.setItem('interest',JSON.stringify(state))
+}
+const localData = JSON.parse(localStorage.getItem('interest'))
 
 const interestReducer = createSlice({
 
     name:"interest",
-    initialState:[],
+    initialState:localData || [],
     reducers:{
         addInterests:(state,action)=>{
-            return [...state,action.payload] 
+            const updatedData = [...state,action.payload]
+            setLocalData(updatedData)
+            return  updatedData
         },
         removeInterest:(state,action)=>{
-            return state.filter((state)=>state !== action.payload)
+            const updatedData = state.filter((state)=>state !== action.payload)
+            setLocalData(updatedData)
+            return updatedData
         }
     }
 })

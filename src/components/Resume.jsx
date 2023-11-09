@@ -7,32 +7,48 @@ const Resume = () => {
     const skillData = useSelector((state) => state.skill)
     const interests = useSelector((state) => state.interest)
     const experience = useSelector((state) => state.experience)
-    const projects = useSelector((state)=> state.projects)
-    const summary = useSelector((state)=> state.summary)
+    const projects = useSelector((state) => state.projects)
+    const summary = useSelector((state) => state.summary)
 
     return (
-        <div>
+        <div className="grid gap-3 px-5">
             {
-                data.map(({ name, email, phone, address }, i) => {
-                    return (
-                        <div key={i}>
-                            <p>Name :  {name}</p>
-                            <p>Phone :  {phone}</p>
-                            <p>Email :  {email}</p>
-                            <p>Address :  {address}</p>
-                        </div>
-                    )
-                })
+                data.length > 0 &&
+                <div >
+                    <p>Personal Details : </p>
+
+                    {
+                        data.map(({ name, email, phone, address }, i) => {
+                            return (
+                                <div  key={i} className="grid gap-1">
+                                    <p>Name :  {name}</p>
+                                    <p>Phone :  {phone}</p>
+                                    <p>Email :  {email}</p>
+                                    <p>Address :  {address}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             }
+
             {
-                educationData.map((e, i) => {
-                    return (
-                        <div key={i}>
-                            <p>Degree : {e.degree}</p>
-                        </div>
-                    )
-                })
+                educationData.length > 0 &&
+                <div className="flex">
+                    <p>Degree : </p>
+                    {
+                        educationData.map((e, i) => {
+                            return (
+                                <div key={i} className="flex">
+                                    <p className="bg-slate-200 mx-2 px-2"> {e.degree}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             }
+
+
             {
                 skillData.length > 0 &&
                 <div className="flex items-center">
@@ -42,7 +58,7 @@ const Resume = () => {
                         skillData.map((skill, i) => {
                             return (
                                 <div key={i}>
-                                    <p className="px-1">{skill},</p>
+                                    <p className="bg-slate-200 mx-2 px-2">{skill}</p>
                                 </div>
                             )
                         })
@@ -58,7 +74,7 @@ const Resume = () => {
                         interests.map((interest, i) => {
                             return (
                                 <div key={i}>
-                                    <p className="px-1">{interest},</p>
+                                    <p className="bg-slate-200 mx-2 px-2">{interest}</p>
                                 </div>
                             )
                         })
@@ -71,10 +87,10 @@ const Resume = () => {
                 <div className="flex">
                     <p className="">Experience : </p>
                     {
-                        experience.map((e,i)=>{
-                            return(
+                        experience.map((e, i) => {
+                            return (
                                 <div key={i}>
-                                    <p>{e.company}</p>
+                                    <p className="bg-slate-200 mx-2 px-2">{e.company}</p>
                                 </div>
                             )
                         })
@@ -87,10 +103,10 @@ const Resume = () => {
                 <div className="flex">
                     <p className="">Projects : </p>
                     {
-                        projects.map((e,i)=>{
-                            return(
+                        projects.map((e, i) => {
+                            return (
                                 <div key={i}>
-                                    <p>{e.company}</p>
+                                    <p className="bg-slate-200 mx-2 px-2">{e.title}</p>
                                 </div>
                             )
                         })
@@ -98,8 +114,8 @@ const Resume = () => {
                 </div>
             }
             {
-                summary !== "" && 
-                <p>Summary : {summary}</p>
+                summary !== "" &&
+                <p className="flex">Summary : <p className="bg-slate-200 mx-2 px-2"> {summary}</p></p>
             }
         </div>
     )

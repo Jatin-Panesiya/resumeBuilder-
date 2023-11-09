@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    users: []
-};
+const localData = JSON.parse(localStorage.getItem("personalData"))
+
+const initialState = localData || {users:[]};
+
+const setLocalData = (state) => {
+    localStorage.setItem("personalData", JSON.stringify(state))
+}
 
 export const mainReducer = createSlice({
     name: 'main',
@@ -10,10 +14,16 @@ export const mainReducer = createSlice({
     reducers: {
         personalData: (state, action) => {
             const { username, email, phone, address } = action.payload;
-            state.users = [{ name:username, email, phone, address }];
+            state.users = [{ name: username, email, phone, address }];
+            setLocalData(state)
+        },
+        removeData: (state, action) => {
+            const newData = action.payload;
+            setLocalData(newData);
+            return newData;
         }
     }
 })
 
-export const { personalData } = mainReducer.actions
+export const { personalData, removeData } = mainReducer.actions
 export default mainReducer.reducer 

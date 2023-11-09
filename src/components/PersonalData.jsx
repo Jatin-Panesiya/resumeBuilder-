@@ -1,12 +1,14 @@
 import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { personalData } from "../store/mainSlice";
+import { personalData, removeData } from "../store/mainSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { nanoid } from "@reduxjs/toolkit";
 
 const PersonalData = () => {
+    const defaultData = { id: nanoid() , username: '', phone: '', email: '', address: '', key: false }
 
-    const [data, setData] = useState({ username: '', phone: '', email: '', address: '', key: false });
+    const [data, setData] = useState(defaultData);
     const notify = () => toast("your data saved , you can move");
     const inputD = useRef()
     const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const PersonalData = () => {
         if (isFormValid()) {
             dispatch(personalData(data));
             notify();
-            setData({ username: '', phone: '', email: '', address: '', key: false })
+            setData(defaultData)
         } else {
             alert("Please Fill All Details")
             inputD.current.focus()
@@ -36,6 +38,9 @@ const PersonalData = () => {
         setData({ username: data.name, phone: data.phone, email: data.email, address: data.address, key: true })
     }
 
+    const handleRemove = ()=>{
+        dispatch(removeData({users:[]}))
+    }
     return (
         <div>
             <div className="m-5 grid md:flex items-center justify-around">
@@ -89,14 +94,17 @@ const PersonalData = () => {
 
                 {
                     userData.length > 0 &&
-                    userData.map(({ name, phone, email, address }, i) => {
+                    userData.map(({id, name, phone, email, address }, i) => {
                         return (
                             <div key={i} className="md:w-96 my-2 md:my-0 rounded-xl p-3 bg-sky-200" >
                                 <p>Name : {name}</p>
                                 <p>Phone : {phone}</p>
                                 <p>Email : {email}</p>
                                 <p>Address : {address}</p>
+                                <div className="flex gap-3">
                                 <button onClick={handleEdit} className="bg-green-500 px-5 py-1 text-white rounded w-full my-2">Edit</button>
+                                <button onClick={()=>handleRemove(id)} className="bg-red-500 px-5 py-1 text-white rounded w-full my-2">Delete</button>
+                                </div>
                             </div>
                         )
                     })

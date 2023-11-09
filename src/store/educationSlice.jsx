@@ -1,18 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const setLocalData = (state)=>{
+    localStorage.setItem("education",JSON.stringify(state))
+}
+const localData = JSON.parse(localStorage.getItem('education')) || []
 
-const initialState = [];
+const initialState = localData;
 
 export const educationSlice = createSlice({
     name:'education',
     initialState,
     reducers:{
         educationDataStore : (state,action)=>{
-            return [...state, action.payload];
+            const updatedData = [...state, action.payload]
+            setLocalData(updatedData)
+            return updatedData;
         },
         educationDataRemove: (state,action)=>{
             const idToRemove = action.payload;
-            return state.filter((entry) => entry.id !== idToRemove);
+            const updatedData = state.filter((entry) => entry.id !== idToRemove)
+            setLocalData(updatedData)
+            return updatedData ;
         }
     }
 
