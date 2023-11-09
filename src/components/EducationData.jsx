@@ -36,7 +36,7 @@ const EducationData = () => {
     }
     return (
         <div className="grid md:justify-around m-5 md:flex items-center justify-center">
-            <div className="w-96 m-auto m-5 grid gap-3">
+            <div className="w-96  m-5 grid gap-3">
                 <h1 className="font-bold text-center text-xl py-5">Education Details</h1>
                 <input
                     className="border border-black rounded ps-5 py-1"
@@ -82,7 +82,7 @@ const EducationData = () => {
 
             </div>
             {
-                storeEducationData.length >0 ?
+                storeEducationData.length >0 &&
 
                 <div className="flex gap-5 justify-center md:w-[52rem]">
                     {
@@ -99,7 +99,7 @@ const EducationData = () => {
                         })
                     }
                 </div>
-                : null
+                
             }
         </div>
     )

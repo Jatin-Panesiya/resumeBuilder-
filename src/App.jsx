@@ -5,6 +5,7 @@ import EducationData from "./components/EducationData";
 import Skills from "./components/Skills";
 import Resume from "./components/Resume";
 import Interests from "./components/Interests";
+import Experience from "./components/Experience";
 function App() {
 
 
@@ -28,7 +29,7 @@ function App() {
         <TabPanel><EducationData/></TabPanel>
         <TabPanel><Skills/></TabPanel>
         <TabPanel><Interests/></TabPanel>
-        <TabPanel>Tab2</TabPanel>
+        <TabPanel><Experience/></TabPanel>
         <TabPanel>Tab2</TabPanel>
         <TabPanel>Tab2</TabPanel>
         <TabPanel><Resume/></TabPanel>
