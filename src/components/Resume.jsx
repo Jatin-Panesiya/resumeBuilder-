@@ -1,7 +1,6 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setStatus } from "../store/tabSlice"
-
 
 const Resume = () => {
     const data = useSelector((state) => state.main.users)
@@ -15,6 +14,8 @@ const Resume = () => {
 
     const [printed, setPrinted] = useState(false)
 
+    const resumePDF = useRef()
+
     const dispatch = useDispatch()
 
     const handlePrint = () => {
@@ -22,14 +23,16 @@ const Resume = () => {
         dispatch(setStatus(true))
         setTimeout(() => {
             window.print()
+            
+        }, 1000)
+        setTimeout(() => {
             setPrinted(false)
             dispatch(setStatus(false))
-        }, 500)
-
-
+        }, 2000)
     }
+    
     return (
-        <div className="w-[8.5in] h-[10.1in]  mx-auto my-3  ">
+        <div  ref={resumePDF} className="w-[8.5in] h-[10.1in]  mx-auto   ">
             <div className="grid gap-3 px-5 py-3">
                 {
                     data.length > 0 &&
@@ -73,19 +76,19 @@ const Resume = () => {
                     <div >
                         <p className="bg-slate-200 p-1.5 text-lg rounded font-bold">Experience</p>
                         <div className="flex items-center gap-5">
-                        {
-                            experience.map((e, i) => {
-                                return (
-                                    <div key={i} className="grid p-2">
-                                        <span className="font-semibold flex items-center gap-1"> <p className="text-[8px]"> ⚫</p> {e.position}</span>
-                                        <span>Company : {e.company}</span>
-                                        <p>Description : {e.description}</p>
-                                        <p>Start Date : {e.startDate}</p>
-                                        <p>End Date :  {e.endDate}</p>
-                                    </div>
-                                )
-                            })
-                        }</div>
+                            {
+                                experience.map((e, i) => {
+                                    return (
+                                        <div key={i} className="grid p-2">
+                                            <span className="font-semibold flex items-center gap-1"> <p className="text-[8px]"> ⚫</p> {e.position}</span>
+                                            <span>Company : {e.company}</span>
+                                            <p>Description : {e.description}</p>
+                                            <p>Start Date : {e.startDate}</p>
+                                            <p>End Date :  {e.endDate}</p>
+                                        </div>
+                                    )
+                                })
+                            }</div>
                     </div>
                 }
 
@@ -167,8 +170,10 @@ const Resume = () => {
                 }
 
 
-                <button className={`bg-green-500 py-1 text-white ${printed ? 'hidden' : 'block'}`} onClick={() => handlePrint()}>Download</button>
+             <button className={`bg-green-500 py-1 text-white ${printed ? 'hidden' : 'block'}`} onClick={() => handlePrint()}>Download</button> 
+                
             </div>
+
         </div>
     )
 }
