@@ -63,7 +63,7 @@ const Skills = () => {
       </div>
 
       {data.length > 0 && (
-        <div className="flex flex-wrap gap-5">
+        <div className="flex flex-wrap justify-center gap-5">
           {data.map((skill, i) => {
             return (
               <div key={i} className="flex items-center justify-between gap-5">

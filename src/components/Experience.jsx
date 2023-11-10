@@ -138,7 +138,7 @@ const Experience = () => {
                     {
                         storeData.map((e, i) => {
                             return (
-                                <div key={i} className="md:w-72 bg-emerald-700  text-white m-2 p-5 rounded grid">
+                                <div key={i} className="md:w-72 bg-sky-200  m-2 p-5 rounded grid">
                                     <p>Company : {e.company}</p>
                                     <p>Position : {e.position}</p>
                                     <p>Description : {e.description}</p>
@@ -146,7 +146,7 @@ const Experience = () => {
 
                                     <p>End Date : {e.endDate}</p>
 
-                                    <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 rounded my-3 font-semibold">Delete</button>
+                                    <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 rounded my-3 text-white">Delete</button>
                                 </div>
                             )
                         })

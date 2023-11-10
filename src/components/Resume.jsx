@@ -9,6 +9,7 @@ const Resume = () => {
     const experience = useSelector((state) => state.experience)
     const projects = useSelector((state) => state.projects)
     const summary = useSelector((state) => state.summary)
+    const additional = useSelector((state) => state.additional)
 
     return (
         <div className="grid gap-3 px-5">
@@ -20,7 +21,7 @@ const Resume = () => {
                     {
                         data.map(({ name, email, phone, address }, i) => {
                             return (
-                                <div  key={i} className="grid gap-1">
+                                <div key={i} className="grid gap-1">
                                     <p>Name :  {name}</p>
                                     <p>Phone :  {phone}</p>
                                     <p>Email :  {email}</p>
@@ -116,6 +117,36 @@ const Resume = () => {
             {
                 summary !== "" &&
                 <p className="flex">Summary : <p className="bg-slate-200 mx-2 px-2"> {summary}</p></p>
+            }
+
+            {
+                additional.length > 0 &&
+
+
+                additional.map((e, i) => {
+                    return (
+                        <div key={i} className="grid gap-2" >
+                        <p className="flex">Github : <p className="bg-slate-200 mx-2 px-2"> {e.github}</p></p>
+                        <p className="flex">Linkedin : <p className="bg-slate-200 mx-2 px-2"> {e.linkedin}</p></p>
+
+                
+                            <span className="flex gap-3 flex-wrap break-words">
+                                <p>Languages : </p>
+                                {
+                                    e.language.map((e, i) => {
+                                        return (
+                                            <div key={i}>
+                                                <p className="bg-slate-200 px-3 rounded-md">{e}</p>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </span>
+
+                        </div>
+                    )
+                })
+
             }
         </div>
     )

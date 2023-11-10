@@ -97,12 +97,12 @@ const EducationData = () => {
                     {
                         storeEducationData.map((e, i) => {
                             return (
-                                <div key={i} className="md:w-72 w-full bg-emerald-700  text-white m-2 p-5 rounded grid">
+                                <div key={i} className="md:w-72 w-full bg-sky-200   m-2 p-5 rounded grid">
                                     <p>Degree : {e.degree}</p>
                                     <p>University : {e.university}</p>
                                     <p>Marks : {e.percentage}%</p>
                                     <p>Passing year : {e.passingYear}</p>
-                                    <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 rounded my-3 font-semibold">Delete</button>
+                                    <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 text-white rounded my-3 ">Delete</button>
                                 </div>
                             )
                         })

@@ -1,14 +1,16 @@
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { addAdditionalData, removeAdditionalData } from "../store/additionalSlice";
 import { nanoid } from "@reduxjs/toolkit";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const AdditionalDetails = () => {
     const [lang, setLang] = useState('');
     const dispatch = useDispatch()
-
+    const inputD = useRef()
     const storeData = useSelector((state) => state.additional)
 
     const [multLang, setMultLang] = useState([]);
@@ -36,13 +38,23 @@ const AdditionalDetails = () => {
         updatedLanguages.splice(index, 1);
         setMultLang(updatedLanguages);
     }
+    const notify = () => toast("your data saved , you can move");
+
+    const { github, linkedin } = data
+    const isFormValid = () => github !== "" && linkedin !== ""
 
     const handleSubmit = () => {
-        const updatedData = { ...data, language: [...multLang] }
-        setData(updatedData)
-        dispatch(addAdditionalData(updatedData))
-        setData(defaultData)
-        setMultLang([])
+        if (isFormValid()) {
+            const updatedData = { ...data, language: [...multLang] }
+            setData(updatedData)
+            dispatch(addAdditionalData(updatedData))
+            setData(defaultData)
+            setMultLang([])
+            notify()
+        } else {
+            alert("Please fill up all details")
+            inputD.current.focus()
+        }
     }
 
     const handleEdit = () => {
@@ -54,9 +66,9 @@ const AdditionalDetails = () => {
         dispatch(removeAdditionalData(id))
     }
     return (
-        <div className="grid md:flex items-center md:justify-around ">
+        <div className="grid md:flex md:items-center mx-3 md:justify-around ">
 
-            <div className="grid md:w-96 m-5 py-2 gap-3">
+            <div className="grid md:w-96   m-5 py-2 gap-3">
 
                 <h1 className="font-bold text-center text-xl py-5">Additional Details</h1>
 
@@ -66,6 +78,7 @@ const AdditionalDetails = () => {
                     placeholder="Github link"
                     name="github"
                     value={data.github}
+                    ref={inputD}
                     onChange={handleInput}
                 />
 
@@ -84,7 +97,7 @@ const AdditionalDetails = () => {
                 </div>
                 {
                     multLang.length > 0 &&
-                    <div className="flex items-center gap-3 px-5">
+                    <div className="flex flex-wrap items-center gap-3 px-5">
                         {
                             multLang.map((e, i) => {
                                 return (
@@ -97,19 +110,21 @@ const AdditionalDetails = () => {
                     </div>
                 }
                 <button onClick={handleSubmit} className="bg-sky-400 py-1 rounded font-semibold">Save</button>
+                <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
+                <ToastContainer />
             </div>
             <div>
 
                 {
                     storeData.length > 0 &&
-                    <div className="bg-sky-200 p-5 rounded-md md:m-0 m-5">
+                    <div className="bg-sky-200 md:w-96 p-5 rounded-md md:m-0 m-5 break-words">
                         {
                             storeData.map((e, i) => {
                                 return (
-                                    <div key={i} >
-                                        <p>Github : {e.github}</p>
-                                        <p>Linkedin : {e.linkedin}</p>
-                                        <span className="flex gap-3">
+                                    <div key={i} className="grid gap-2" >
+                                        <p className="bg-slate-200 rounded-md p-1">{e.github}</p>
+                                        <p className="bg-slate-200 p-1 rounded-md">{e.linkedin}</p>
+                                        <span className="flex gap-3 flex-wrap break-words">
                                             <p>Languages : </p>
                                             {
                                                 e.language.map((e, i) => {
@@ -123,7 +138,7 @@ const AdditionalDetails = () => {
                                         </span>
                                         <div className="flex items-center gap-3">
                                             <button className="bg-green-400 w-full py-1 rounded mt-2" onClick={handleEdit}>Edit</button>
-                                            <button className="bg-red-400 w-full py-1 rounded mt-2" onClick={() => handleDelete(e.id)}>Delete</button>
+                                            <button className="bg-red-500 text-white w-full py-1 rounded mt-2" onClick={() => handleDelete(e.id)}>Delete</button>
                                         </div>
                                     </div>
                                 )

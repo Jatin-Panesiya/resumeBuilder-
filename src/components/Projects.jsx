@@ -79,12 +79,12 @@ const Projects = () => {
                     {
                         storeData.map((e, i) => {
                             return (
-                                <div key={i} className="md:w-72 w-full bg-emerald-700 break-words m-auto text-white p-5 rounded ">
+                                <div key={i} className="md:w-72 w-full bg-sky-200 break-words m-auto p-5 rounded ">
                                     <p>Title : {e.title}</p>
                                     <p>Technologies : {e.technologies}</p>
                                     <p >Description : {e.description}</p>
 
-                                    <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 rounded my-3 font-semibold">Delete</button>
+                                    <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 text-white rounded my-3 ">Delete</button>
                                 </div>
                             )
                         })
