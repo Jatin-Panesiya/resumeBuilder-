@@ -8,6 +8,7 @@ import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Summary from "./components/Summary";
 import React from "react";
+import AdditionalDetails from "./components/AdditionalDetails";
 function App() {
 
 
@@ -19,6 +20,7 @@ function App() {
         <TabList >
           <Tab>Profile Summary</Tab>
           <Tab>Personal Details</Tab>
+          <Tab>Additional Details</Tab>
           <Tab>Education Details</Tab>
           <Tab>Experience</Tab>
           <Tab>Projects</Tab>
@@ -29,6 +31,7 @@ function App() {
 
         <TabPanel><Summary /></TabPanel>
         <TabPanel><PersonalData /></TabPanel>
+        <TabPanel><AdditionalDetails/></TabPanel>
         <TabPanel><EducationData /></TabPanel>
         <TabPanel><Experience /></TabPanel>
         <TabPanel><Projects /></TabPanel>

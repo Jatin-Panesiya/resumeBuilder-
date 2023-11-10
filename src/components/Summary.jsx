@@ -40,8 +40,8 @@ const Summary = () => {
   }
 
   return (
-    <div className="grid md:flex items-center w-full justify-around">
-      <div className="grid gap-2 py-2 m-3">
+    <div className="grid md:flex items-center md:justify-around">
+      <div className="grid md:w-96  gap-2 py-2 m-3">
         <h1 className="font-bold text-center text-xl py-5">Profile Summary</h1>
         <textarea
           rows={5}

@@ -6,6 +6,7 @@ import interestSlice from "./interestSlice";
 import experienceReducer from "./experienceSlice";
 import projectReducer from "./projectsSlice";
 import  summaryReducer  from "./summrySlice";
+import additionalSlice from "./additionalSlice";
 
 
 export const store = configureStore({
@@ -16,6 +17,7 @@ export const store = configureStore({
         interest: interestSlice,
         experience: experienceReducer,
         projects: projectReducer,
-        summary:summaryReducer
+        summary:summaryReducer,
+        additional:additionalSlice
     }
 })
