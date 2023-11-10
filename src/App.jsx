@@ -9,15 +9,21 @@ import Projects from "./components/Projects";
 import Summary from "./components/Summary";
 import React from "react";
 import AdditionalDetails from "./components/AdditionalDetails";
+import { useSelector } from "react-redux";
+
+
 function App() {
 
+  const status = useSelector((state) => state.printedStatus)
 
   return (
     <React.Fragment>
 
+
       <Tabs>
 
-        <TabList >
+
+        <TabList className={`${status ? 'hidden' : 'flex'} justify-center flex-wrap  `} >
           <Tab>Profile Summary</Tab>
           <Tab>Personal Details</Tab>
           <Tab>Additional Details</Tab>
@@ -29,9 +35,10 @@ function App() {
           <Tab>Resume</Tab>
         </TabList>
 
+
         <TabPanel><Summary /></TabPanel>
         <TabPanel><PersonalData /></TabPanel>
-        <TabPanel><AdditionalDetails/></TabPanel>
+        <TabPanel><AdditionalDetails /></TabPanel>
         <TabPanel><EducationData /></TabPanel>
         <TabPanel><Experience /></TabPanel>
         <TabPanel><Projects /></TabPanel>
@@ -40,7 +47,6 @@ function App() {
         <TabPanel><Resume /></TabPanel>
 
       </Tabs>
-
 
 
     </React.Fragment>

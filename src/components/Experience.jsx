@@ -146,6 +146,7 @@ const Experience = () => {
 
                                     <p>End Date : {e.endDate}</p>
 
+                                    
                                     <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 rounded my-3 text-white">Delete</button>
                                 </div>
                             )

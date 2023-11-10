@@ -5,8 +5,9 @@ import skillReducer from "./skillSlice";
 import interestSlice from "./interestSlice";
 import experienceReducer from "./experienceSlice";
 import projectReducer from "./projectsSlice";
-import  summaryReducer  from "./summrySlice";
+import summaryReducer from "./summrySlice";
 import additionalSlice from "./additionalSlice";
+import printedReducer from "./tabSlice";
 
 
 export const store = configureStore({
@@ -17,7 +18,9 @@ export const store = configureStore({
         interest: interestSlice,
         experience: experienceReducer,
         projects: projectReducer,
-        summary:summaryReducer,
-        additional:additionalSlice
+        summary: summaryReducer,
+        additional: additionalSlice,
+        printedStatus: printedReducer,
+
     }
 })

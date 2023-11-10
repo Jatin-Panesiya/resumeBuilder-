@@ -1,4 +1,6 @@
-import { useSelector } from "react-redux"
+import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { setStatus } from "../store/tabSlice"
 
 
 const Resume = () => {
@@ -11,143 +13,162 @@ const Resume = () => {
     const summary = useSelector((state) => state.summary)
     const additional = useSelector((state) => state.additional)
 
+    const [printed, setPrinted] = useState(false)
+
+    const dispatch = useDispatch()
+
+    const handlePrint = () => {
+        setPrinted(true)
+        dispatch(setStatus(true))
+        setTimeout(() => {
+            window.print()
+            setPrinted(false)
+            dispatch(setStatus(false))
+        }, 500)
+
+
+    }
     return (
-        <div className="grid gap-3 px-5">
-            {
-                data.length > 0 &&
-                <div >
-                    <p>Personal Details : </p>
+        <div className="w-[8.5in] h-[10.1in]  mx-auto my-3  ">
+            <div className="grid gap-3 px-5 py-3">
+                {
+                    data.length > 0 &&
+                    <div>
+                        {
+                            data.map(({ name, email, phone, address }, i) => {
+                                return (
+                                    <div key={i} className="grid gap-0.5 text-center">
+                                        <p className="uppercase text-center font-semibold text-2xl">{name}</p>
+                                        <p className="text-sm">{address}</p>
+                                        <span className="flex text-sm justify-center items-center gap-2"><p>{phone}</p> <p>|</p> <p> {email} </p></span>
+                                        {
+                                            additional.map(({ github, linkedin }, i) => {
+                                                return (
+                                                    <div key={i} className="flex justify-center gap-2 text-sm">
+                                                        <p>{github}</p>
+                                                        <p>|</p>
+                                                        <p>{linkedin}</p>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                )
+                            })
+                        }
 
-                    {
-                        data.map(({ name, email, phone, address }, i) => {
-                            return (
-                                <div key={i} className="grid gap-1">
-                                    <p>Name :  {name}</p>
-                                    <p>Phone :  {phone}</p>
-                                    <p>Email :  {email}</p>
-                                    <p>Address :  {address}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
-
-            {
-                educationData.length > 0 &&
-                <div className="flex">
-                    <p>Degree : </p>
-                    {
-                        educationData.map((e, i) => {
-                            return (
-                                <div key={i} className="flex">
-                                    <p className="bg-slate-200 mx-2 px-2"> {e.degree}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
-
-
-            {
-                skillData.length > 0 &&
-                <div className="flex items-center">
-
-                    <p >Skills : </p>
-                    {
-                        skillData.map((skill, i) => {
-                            return (
-                                <div key={i}>
-                                    <p className="bg-slate-200 mx-2 px-2">{skill}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
-
-            {
-                interests.length > 0 &&
-                <div className="flex items-center">
-                    <p >Interest : </p>
-                    {
-                        interests.map((interest, i) => {
-                            return (
-                                <div key={i}>
-                                    <p className="bg-slate-200 mx-2 px-2">{interest}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
-
-            {
-                experience.length > 0 &&
-                <div className="flex">
-                    <p className="">Experience : </p>
-                    {
-                        experience.map((e, i) => {
-                            return (
-                                <div key={i}>
-                                    <p className="bg-slate-200 mx-2 px-2">{e.company}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
-
-            {
-                projects.length > 0 &&
-                <div className="flex">
-                    <p className="">Projects : </p>
-                    {
-                        projects.map((e, i) => {
-                            return (
-                                <div key={i}>
-                                    <p className="bg-slate-200 mx-2 px-2">{e.title}</p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
-            {
-                summary !== "" &&
-                <p className="flex">Summary : <p className="bg-slate-200 mx-2 px-2"> {summary}</p></p>
-            }
-
-            {
-                additional.length > 0 &&
+                    </div>
+                }
+                {
+                    summary !== "" &&
+                    <div>
+                        <p className="bg-slate-200 p-1.5 text-lg rounded font-bold">Summary</p>
+                        <p className="py-1 px-2">{summary}</p>
+                    </div>
+                }
 
 
-                additional.map((e, i) => {
-                    return (
-                        <div key={i} className="grid gap-2" >
-                        <p className="flex">Github : <p className="bg-slate-200 mx-2 px-2"> {e.github}</p></p>
-                        <p className="flex">Linkedin : <p className="bg-slate-200 mx-2 px-2"> {e.linkedin}</p></p>
+                {
+                    experience.length > 0 &&
+                    <div >
+                        <p className="bg-slate-200 p-1.5 text-lg rounded font-bold">Experience</p>
+                        <div className="flex items-center gap-5">
+                        {
+                            experience.map((e, i) => {
+                                return (
+                                    <div key={i} className="grid p-2">
+                                        <span className="font-semibold flex items-center gap-1"> <p className="text-[8px]"> ⚫</p> {e.position}</span>
+                                        <span>Company : {e.company}</span>
+                                        <p>Description : {e.description}</p>
+                                        <p>Start Date : {e.startDate}</p>
+                                        <p>End Date :  {e.endDate}</p>
+                                    </div>
+                                )
+                            })
+                        }</div>
+                    </div>
+                }
 
-                
-                            <span className="flex gap-3 flex-wrap break-words">
-                                <p>Languages : </p>
-                                {
-                                    e.language.map((e, i) => {
-                                        return (
-                                            <div key={i}>
-                                                <p className="bg-slate-200 px-3 rounded-md">{e}</p>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </span>
+                {
+                    educationData.length > 0 &&
+                    <div>
+                        <p className="bg-slate-200 p-1.5 text-lg rounded font-bold">Education</p>
 
+                        {
+                            educationData.map(({ degree, university, percentage, passingYear }, i) => {
+                                return (
+                                    <div key={i} className="p-2 grid">
+                                        <span className="font-semibold flex items-center gap-1"> <p className="text-[8px]"> ⚫</p> {university}</span>
+                                        <span>{degree}</span>
+                                        <span>Percenrage : {percentage}%</span>
+                                        <span>Passing Year : {passingYear}</span>
+                                    </div>
+                                )
+                            })
+                        }
+
+                    </div>
+                }
+
+                {
+                    projects.length > 0 &&
+                    <div>
+                        <p className="bg-slate-200 p-1.5 text-lg rounded font-bold">Projects</p>
+                        {
+                            projects.map(({ title, description, technologies }, i) => {
+                                return (
+                                    <div key={i} className="grid p-2">
+                                        <span className="font-semibold flex items-center gap-1"> <p className="text-[8px]"> ⚫</p> {title}</span>
+                                        <span>Description : {description}</span>
+                                        <span>Technologies  : {technologies}</span>
+
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                }
+
+                {
+                    skillData.length > 0 &&
+                    <div >
+
+                        <p className="bg-slate-200 p-1.5 text-lg rounded font-bold">Skills</p>
+                        <div className="flex p-2">
+                            {
+                                skillData.map((skill, i) => {
+                                    return (
+                                        <div key={i} className="px-1">
+                                            <p>{skill}{i < skillData.length - 1 && ','}</p>
+                                        </div>
+                                    )
+                                })
+                            }</div>
+                    </div>
+                }
+
+                {
+                    interests.length > 0 &&
+                    <div>
+                        <p className="bg-slate-200 p-1.5 text-lg rounded font-bold">Interests</p>
+                        <div className="flex items-center p-2">
+
+                            {
+                                interests.map((interest, i) => {
+                                    return (
+                                        <div key={i} className="px-1">
+                                            <p>{interest} {i < interests.length - 1 && ','}</p>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
-                    )
-                })
+                    </div>
+                }
 
-            }
+
+                <button className={`bg-green-500 py-1 text-white ${printed ? 'hidden' : 'block'}`} onClick={() => handlePrint()}>Download</button>
+            </div>
         </div>
     )
 }

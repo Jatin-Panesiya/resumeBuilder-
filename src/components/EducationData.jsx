@@ -41,6 +41,11 @@ const EducationData = () => {
         dispatch(educationDataRemove(id))
         notify();
     }
+    const handleEdit = (id) => {
+        const [dataToUpdate] = storeEducationData.filter((state) => state.id === id)
+        setEducationData(dataToUpdate)
+        dispatch(educationDataRemove(id));
+    };
 
     return (
         <div className="grid md:justify-around m-5 md:flex items-center justify-center">
@@ -102,7 +107,10 @@ const EducationData = () => {
                                     <p>University : {e.university}</p>
                                     <p>Marks : {e.percentage}%</p>
                                     <p>Passing year : {e.passingYear}</p>
-                                    <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 text-white rounded my-3 ">Delete</button>
+                                    <div className="flex gap-3">
+                                        <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 text-white rounded my-3 ">Delete</button>
+                                        <button onClick={() => handleEdit(e.id)} className="w-full m-auto bg-green-500 text-white rounded my-3 ">Edit</button>
+                                    </div>
                                 </div>
                             )
                         })
