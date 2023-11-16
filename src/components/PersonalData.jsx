@@ -4,6 +4,7 @@ import { personalData, removeData } from "../store/mainSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "@reduxjs/toolkit";
+import { setTabCounter } from "../store/tabCounterSlice";
 
 const PersonalData = () => {
     const defaultData = { id: nanoid() , username: '', phone: '', email: '', address: '', key: false }
@@ -22,11 +23,14 @@ const PersonalData = () => {
     const { username, phone, email, address } = data;
     const isFormValid = () => username !== "" && phone !== "" && email !== "" && address !== "";
 
+    const counter = useSelector((state)=>state.tabCounter)
+
     const handleSubmit = () => {
         if (isFormValid()) {
             dispatch(personalData(data));
             notify();
             setData(defaultData)
+            dispatch(setTabCounter(counter+1))
         } else {
             alert("Please Fill All Details")
             inputD.current.focus()
@@ -85,7 +89,7 @@ const PersonalData = () => {
 
                     <button
                         onClick={handleSubmit} className="bg-sky-400 py-1 text-lg rounded font-bold font-mono">
-                        {data.key ? 'Update' : 'Add'}
+                        {data.key ? 'Update' : 'Save & Next'}
                     </button>
                     <ToastContainer />
                     <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>

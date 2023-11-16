@@ -32,7 +32,7 @@ const Resume = () => {
     }
     
     return (
-        <div  ref={resumePDF} className="w-[8.5in] h-[10.1in]  mx-auto   ">
+        <div  ref={resumePDF} className="w-[8.5in] h-[10.1in]  mx-auto    ">
             <div className="grid gap-3 px-5 py-3">
                 {
                     data.length > 0 &&

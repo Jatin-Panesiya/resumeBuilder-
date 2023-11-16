@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProject, removeProject } from "../store/projectsSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setTabCounter } from "../store/tabCounterSlice";
 
 const Projects = () => {
     const dispatch = useDispatch();
@@ -35,6 +36,10 @@ const Projects = () => {
 
     const handleRemove = (id) => {
         dispatch(removeProject(id))
+    }
+    const counter = useSelector((state)=>state.tabCounter)
+    const handleSave = ()=>{
+        dispatch(setTabCounter(counter+1))
     }
     return (
         <div className="grid md:justify-around m-5 md:flex items-center justify-center">
@@ -69,6 +74,8 @@ const Projects = () => {
                     value={data.technologies}
                 />
                 <button onClick={handleAdd} className="bg-sky-400 font-bold py-1 rounded">Add</button>
+                <button onClick={handleSave}  className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
+
                 <ToastContainer />
                 <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
 

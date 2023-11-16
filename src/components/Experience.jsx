@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { nanoid } from "@reduxjs/toolkit";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setTabCounter } from "../store/tabCounterSlice";
 
 
 const Experience = () => {
@@ -56,7 +57,10 @@ const Experience = () => {
         data.endDate
     }, [data])
 
-
+    const counter = useSelector((state)=>state.tabCounter)
+    const handleSave = ()=>{
+        dispatch(setTabCounter(counter+1))
+    }
     return (
         <div className="grid md:justify-around m-5 md:flex items-center">
 
@@ -126,6 +130,8 @@ const Experience = () => {
                 </div>
 
                 <button onClick={handleAdd} className="bg-sky-400 font-bold py-1 rounded">Add</button>
+                <button onClick={handleSave}  className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
+
                 <ToastContainer />
                 <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
 
@@ -146,7 +152,6 @@ const Experience = () => {
 
                                     <p>End Date : {e.endDate}</p>
 
-                                    
                                     <button onClick={() => handleRemove(e.id)} className="w-full m-auto bg-red-500 rounded my-3 text-white">Delete</button>
                                 </div>
                             )

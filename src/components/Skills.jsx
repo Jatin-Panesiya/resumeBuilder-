@@ -4,6 +4,7 @@ import { addSkills, removeSkills } from "../store/skillSlice";
 import { useRef } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setTabCounter } from "../store/tabCounterSlice";
 
 
 const Skills = () => {
@@ -40,9 +41,14 @@ const Skills = () => {
   const handleRemove = (skill) => {
     dispatch(removeSkills(skill));
   };
+
+  const counter = useSelector((state) => state.tabCounter)
+  const handleSave = () => {
+    dispatch(setTabCounter(counter + 1))
+  }
   return (
     <div className="md:w-96 justify-center m-auto py-5 grid gap-5">
-      <div className="grid sm:flex items-center gap-3 justify-center ">
+      <div className="grid sm:flex items-center gap-3 justify-normal md:justify-between ">
         <input
           value={inputedSkill}
           ref={inputD}
@@ -55,12 +61,14 @@ const Skills = () => {
         <button
 
           onClick={handleAdd}
-          className="bg-sky-400 font-semibold px-5 py-1 rounded-xl"
+          className="bg-sky-400 font-semibold w-full py-1 rounded-xl"
         >
           Add
         </button>
+
         <ToastContainer />
       </div>
+      <button onClick={handleSave} className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
 
       {data.length > 0 && (
         <div className="flex flex-wrap justify-center gap-5">

@@ -3,6 +3,7 @@ import { addSummary, removeSummary } from "../store/summrySlice"
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setTabCounter } from "../store/tabCounterSlice";
 
 const Summary = () => {
 
@@ -15,6 +16,7 @@ const Summary = () => {
   const handleInput = (e) => {
     setData(e.target.value)
   }
+  const counter = useSelector((state)=>state.tabCounter)
 
   const handleAdd = () => {
     if (data !== "") {
@@ -22,6 +24,8 @@ const Summary = () => {
       setData('')
       inputD.current.focus()
       notify()
+      dispatch(setTabCounter(counter+1))
+
     }
     else {
       alert("Enter some data")
@@ -54,7 +58,7 @@ const Summary = () => {
           value={data}
           ref={inputD}
         />
-        <button onClick={handleAdd} className="bg-sky-400 py-1 rounded font-semibold">Add</button>
+        <button onClick={handleAdd} className="bg-sky-400 py-1 rounded font-semibold">Save & Next</button>
         <ToastContainer />
         <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
       </div>

@@ -5,6 +5,7 @@ import { addAdditionalData, removeAdditionalData } from "../store/additionalSlic
 import { nanoid } from "@reduxjs/toolkit";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setTabCounter } from "../store/tabCounterSlice";
 
 
 const AdditionalDetails = () => {
@@ -42,6 +43,7 @@ const AdditionalDetails = () => {
 
     const { github, linkedin } = data
     const isFormValid = () => github !== "" && linkedin !== ""
+    const counter = useSelector((state)=>state.tabCounter)
 
     const handleSubmit = () => {
         if (isFormValid()) {
@@ -51,6 +53,8 @@ const AdditionalDetails = () => {
             setData(defaultData)
             setMultLang([])
             notify()
+            dispatch(setTabCounter(counter+1))
+
         } else {
             alert("Please fill up all details")
             inputD.current.focus()
@@ -93,7 +97,7 @@ const AdditionalDetails = () => {
 
                 <div className="border border-black rounded flex items-center justify-between px-5">
                     <input className=" py-1 outline-none w-full" type="text" placeholder="languages" value={lang} onChange={handleLang} />
-                    <button onClick={addLang} className="bg-slate-300 px-3 rounded-md">Add</button>
+                    <button onClick={addLang} className="bg-slate-300 px-3 rounded-md">Add </button>
                 </div>
                 {
                     multLang.length > 0 &&
@@ -109,7 +113,7 @@ const AdditionalDetails = () => {
                         }
                     </div>
                 }
-                <button onClick={handleSubmit} className="bg-sky-400 py-1 rounded font-semibold">Save</button>
+                <button onClick={handleSubmit} className="bg-sky-400 py-1 rounded font-semibold">Save & Next</button>
                 <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>
                 <ToastContainer />
             </div>

@@ -4,6 +4,7 @@ import { addInterests, removeInterest } from "../store/interestSlice";
 import { useRef } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setTabCounter } from "../store/tabCounterSlice";
 
 
 const Interests = () => {
@@ -35,14 +36,19 @@ const Interests = () => {
   const handleRemove = (interest) => {
     dispatch(removeInterest(interest))
   }
+  const counter = useSelector((state) => state.tabCounter)
+  const handleSave = () => {
+    dispatch(setTabCounter(counter + 1))
+  }
 
   return (
     <div className="md:w-96 w-full justify-center grid gap-3 m-auto py-5">
-      <div className="grid  justify-center md:flex items-center gap-3">
+      <div className="grid  justify-normal md:justify-between md:flex items-center gap-3">
         <input className="border py-1 border-black ps-5 rounded" type="text" onChange={(e) => setData(e.target.value)} ref={inputD} value={data} onKeyDown={handleKeyPress} placeholder="Enter Interests" />
         <button onClick={handleSubmit} className="bg-sky-400  font-semibold px-5 py-1 rounded-xl">Add</button>
         <ToastContainer />
       </div>
+        <button onClick={handleSave} className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
       {
         storeData.length > 0 ?
 

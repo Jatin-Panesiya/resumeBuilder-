@@ -8,7 +8,7 @@ import projectReducer from "./projectsSlice";
 import summaryReducer from "./summrySlice";
 import additionalSlice from "./additionalSlice";
 import printedReducer from "./tabSlice";
-
+import  tabCounter  from "./tabCounterSlice";
 
 export const store = configureStore({
     reducer: {
@@ -21,6 +21,7 @@ export const store = configureStore({
         summary: summaryReducer,
         additional: additionalSlice,
         printedStatus: printedReducer,
+        tabCounter: tabCounter,
 
     }
 })

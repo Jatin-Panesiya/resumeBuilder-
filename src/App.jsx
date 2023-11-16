@@ -9,30 +9,33 @@ import Projects from "./components/Projects";
 import Summary from "./components/Summary";
 import React from "react";
 import AdditionalDetails from "./components/AdditionalDetails";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setTabCounter } from "./store/tabCounterSlice";
+
 
 
 function App() {
 
+  const counter = useSelector((state) => state.tabCounter)
+  const dispatch = useDispatch()
   const status = useSelector((state) => state.printedStatus)
 
   return (
     <React.Fragment>
 
 
-      <Tabs>
+      <Tabs selectedIndex={counter} onSelect={(index) => dispatch(setTabCounter(index))} >
 
-
-        <TabList className={`${status ? 'hidden' : 'flex'} justify-center flex-wrap  `} >
-          <Tab>Profile Summary</Tab>
-          <Tab>Personal Details</Tab>
-          <Tab>Additional Details</Tab>
-          <Tab>Education Details</Tab>
-          <Tab>Experience</Tab>
-          <Tab>Projects</Tab>
-          <Tab>Skills</Tab>
-          <Tab>Interest</Tab>
-          <Tab>Resume</Tab>
+        <TabList className={`${status ? 'hidden' : 'flex'} overflow-auto `} >
+          <Tab >Profile Summary</Tab>
+          <Tab >Personal Details</Tab>
+          <Tab >Additional Details</Tab>
+          <Tab >Education Details</Tab>
+          <Tab >Experience</Tab>
+          <Tab >Projects</Tab>
+          <Tab >Skills</Tab>
+          <Tab >Interest</Tab>
+          <Tab >Resume</Tab>
         </TabList>
 
 

@@ -16,6 +16,14 @@
     justify-content: start;
   }
 }
+@media (max-width:900px) {
+  .react-tabs__tab {
+    min-width: auto;
+    text-align: center;
+    
+  }
+  
+}
 
 .react-tabs__tab {
   display: inline-block;
@@ -28,7 +36,10 @@
   cursor: pointer;
   background-color: #e0eaf9;
   border-radius: 15px;
+  display: flex;
+  align-items: center;
   margin: 5px 5px;
+  
 }
 
 .react-tabs__tab--selected {
@@ -69,5 +80,11 @@
 
 @media print {
   body {-webkit-print-color-adjust: exact;}
+
   }
   @page { size: auto;  margin: 0mm; }
+
+  body{
+    background-color: linear-gradient(to right, rgb(55, 65, 81), rgb(17, 24, 39), rgb(0, 0, 0));
+  }
+  
