@@ -130,7 +130,10 @@ const Experience = () => {
                 </div>
 
                 <button onClick={handleAdd} className="bg-sky-400 font-bold py-1 rounded">Add</button>
+                {
+                    storeData.length > 0 &&
                 <button onClick={handleSave}  className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
+                }
 
                 <ToastContainer />
                 <p className="uppercase text-[13px] text-center text-red-500 font-bold ">Click on add button before moving to another tab</p>

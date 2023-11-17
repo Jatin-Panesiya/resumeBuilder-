@@ -68,7 +68,10 @@ const Skills = () => {
 
         <ToastContainer />
       </div>
-      <button onClick={handleSave} className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
+      {
+        data.length > 0 &&
+        <button onClick={handleSave} className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
+      }
 
       {data.length > 0 && (
         <div className="flex flex-wrap justify-center gap-5">

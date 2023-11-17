@@ -48,10 +48,12 @@ const Interests = () => {
         <button onClick={handleSubmit} className="bg-sky-400  font-semibold px-5 py-1 rounded-xl">Add</button>
         <ToastContainer />
       </div>
-        <button onClick={handleSave} className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
       {
-        storeData.length > 0 ?
-
+        storeData.length > 0 &&
+        <button onClick={handleSave} className="bg-green-400 py-1 text-lg rounded font-bold font-mono">Save & Next</button>
+      }
+      {
+        storeData.length > 0 &&
           <div className="flex justify-center flex-wrap gap-3">
             {
               storeData.map((interest, i) => {
@@ -67,7 +69,7 @@ const Interests = () => {
             }
           </div>
 
-          : null
+          
 
       }
     </div>
